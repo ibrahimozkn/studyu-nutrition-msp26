@@ -11,12 +11,12 @@ class PortionAdjustmentSheet extends StatefulWidget {
     super.key,
   });
 
-  static Future<void> show(
+  static Future<FoodEntry?> show(
     BuildContext context, {
     required FoodEntry food,
     ValueChanged<FoodEntry>? onConfirm,
   }) {
-    return showModalBottomSheet<void>(
+    return showModalBottomSheet<FoodEntry>(
       context: context,
       isScrollControlled: true,
       builder: (_) => PortionAdjustmentSheet(
@@ -172,7 +172,7 @@ class _PortionAdjustmentSheetState extends State<PortionAdjustmentSheet> {
                   onPressed: () {
                     final updated = _scaleFoodEntry(widget.food, _multiplier);
                     widget.onConfirm?.call(updated);
-                    Navigator.of(context).pop();
+                    Navigator.of(context).pop(updated);
                   },
                   child: const Text('Update'),
                 ),

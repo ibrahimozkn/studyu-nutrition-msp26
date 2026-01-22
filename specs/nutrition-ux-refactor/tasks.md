@@ -75,7 +75,7 @@ Focus: Validate the consolidated meal entry screen works end-to-end. Skip advanc
   - _Requirements: FR-5, AC-3.1_
   - _Design: InlineSearchBottomSheet_
 
-- [ ] 1.7 Create QuickFoodAddWidget
+- [x] 1.7 Create QuickFoodAddWidget
   - **Do**: Create widget showing "Recent Foods" chips (hardcoded 3-4 items for POC) and action buttons: "Search" (opens InlineFoodSearchSheet), "Scan Barcode" (existing), "Custom Food" (existing FoodEntryScreen).
   - **Files**:
     - `app/lib/widgets/quick_food_add_widget.dart` (new)
@@ -85,7 +85,7 @@ Focus: Validate the consolidated meal entry screen works end-to-end. Skip advanc
   - _Requirements: FR-3, FR-5_
   - _Design: QuickFoodAddWidget_
 
-- [ ] 1.8 Create QuickMealEntryScreen scaffold
+- [x] 1.8 Create QuickMealEntryScreen scaffold
   - **Do**: Create main screen widget with: meal type selector (auto-suggested based on time), time picker, NaturalLanguageInputWidget, TemplateCarouselWidget, FoodEntryChip list, QuickFoodAddWidget. Use Provider for state. Wire up to existing DailyRecallEntryViewModel.
   - **Files**:
     - `app/lib/screens/study/nutrition/quick_meal_entry_screen.dart` (new)
@@ -95,7 +95,7 @@ Focus: Validate the consolidated meal entry screen works end-to-end. Skip advanc
   - _Requirements: FR-1, FR-4, FR-7, AC-1.2_
   - _Design: QuickMealEntryScreen_
 
-- [ ] 1.9 Wire up food addition flow
+- [x] 1.9 Wire up food addition flow
   - **Do**: Connect InlineFoodSearchSheet result to QuickMealEntryScreen state. Update FoodEntryChip list when food is added. Implement add/remove/update methods in screen state.
   - **Files**:
     - `app/lib/screens/study/nutrition/quick_meal_entry_screen.dart` (modify)
@@ -104,7 +104,7 @@ Focus: Validate the consolidated meal entry screen works end-to-end. Skip advanc
   - **Commit**: `feat(nutrition): wire up food addition flow`
   - _Requirements: FR-1, AC-1.1_
 
-- [ ] 1.10 Wire up template application
+- [x] 1.10 Wire up template application
   - **Do**: Connect TemplateCarouselWidget quick-add to QuickMealEntryScreen. Applying template should add all foods from template to the food list using TemplateViewModel.applyMealTemplate().
   - **Files**:
     - `app/lib/screens/study/nutrition/quick_meal_entry_screen.dart` (modify)
@@ -113,7 +113,7 @@ Focus: Validate the consolidated meal entry screen works end-to-end. Skip advanc
   - **Commit**: `feat(nutrition): wire up template application`
   - _Requirements: FR-4, AC-4.1, AC-4.4_
 
-- [ ] 1.11 Wire up portion adjustment
+- [x] 1.11 Wire up portion adjustment
   - **Do**: Connect FoodEntryChip tap to PortionAdjustmentSheet with current FoodEntry. Update the food in the list when portion is changed.
   - **Files**:
     - `app/lib/screens/study/nutrition/quick_meal_entry_screen.dart` (modify)
@@ -122,7 +122,7 @@ Focus: Validate the consolidated meal entry screen works end-to-end. Skip advanc
   - **Commit**: `feat(nutrition): wire up portion adjustment`
   - _Requirements: FR-6_
 
-- [ ] 1.12 Wire up save to existing MealLog/DailyRecall
+- [x] 1.12 Wire up save to existing MealLog/DailyRecall
   - **Do**: Connect save button to create MealLog from screen state and return to NutritionTaskWidget. Ensure proper integration with existing DailyRecallEntryViewModel.addMeal().
   - **Files**:
     - `app/lib/screens/study/nutrition/quick_meal_entry_screen.dart` (modify)
