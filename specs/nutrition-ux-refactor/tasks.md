@@ -269,14 +269,14 @@ After POC validated, clean up code and prepare for production.
   - **Commit**: `fix(nutrition): address lint and type issues` (if needed)
   - _Requirements: NFR-1, NFR-2, NFR-3_
 
-- [ ] 4.2 Web responsiveness check
+- [x] 4.2 Web responsiveness check
   - **Do**: Run `melos run app` and verify QuickMealEntryScreen displays correctly on web (Chrome). Check bottom sheet behavior, carousel scrolling.
   - **Verify**: No layout issues on web viewport
   - **Done when**: Web experience matches mobile expectations
   - **Commit**: `fix(nutrition): address web responsiveness issues` (if needed)
   - _Requirements: NFR-5_
 
-- [ ] 4.3 Create PR and verify CI
+- [x] 4.3 Create PR and verify CI
   - **Do**: Push branch, create PR with gh CLI. Watch CI checks.
   - **Verify**: `gh pr checks --watch` all green
   - **Done when**: PR ready for review
