@@ -64,7 +64,7 @@ Focus: Validate the consolidated meal entry screen works end-to-end. Skip advanc
   - _Requirements: FR-4, AC-4.2, AC-4.4_
   - _Design: TemplateCarouselWidget_
 
-- [ ] 1.6 Create InlineFoodSearchSheet
+- [x] 1.6 Create InlineFoodSearchSheet
   - **Do**: Extract search logic from existing FoodSearchScreen into reusable bottom sheet. Use DraggableScrollableSheet at 50% height. Maintain parallel search (USDA, OpenFoodFacts, templates).
   - **Files**:
     - `app/lib/screens/study/nutrition/inline_food_search_sheet.dart` (new)
