@@ -54,7 +54,7 @@ Focus: Validate the consolidated meal entry screen works end-to-end. Skip advanc
   - _Requirements: FR-6, AC-3.3_
   - _Design: PortionAdjustmentSheet_
 
-- [ ] 1.5 Create TemplateCarouselWidget
+- [x] 1.5 Create TemplateCarouselWidget
   - **Do**: Create horizontal scrolling list of template cards using TemplateViewModel. Each card shows template name, food count, and quick-add button. Use existing GatsotSelector pattern for scrolling.
   - **Files**:
     - `app/lib/widgets/template_carousel_widget.dart` (new)
