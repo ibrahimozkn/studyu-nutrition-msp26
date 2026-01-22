@@ -44,7 +44,7 @@ Focus: Validate the consolidated meal entry screen works end-to-end. Skip advanc
   - _Requirements: FR-1, FR-6_
   - _Design: FoodEntryChip, PortionAdjustmentSheet_
 
-- [ ] 1.4 Implement PortionAdjustmentSheet with slider
+- [x] 1.4 Implement PortionAdjustmentSheet with slider
   - **Do**: Create bottom sheet with Slider (0.5x to 3x range) and preset buttons (0.5x, 1x, 1.5x, 2x). Accept FoodEntry and callback for updated amount. Update display dynamically as slider moves.
   - **Files**:
     - `app/lib/widgets/portion_adjustment_sheet.dart` (complete implementation)
