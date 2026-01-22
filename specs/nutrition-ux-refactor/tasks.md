@@ -132,7 +132,7 @@ Focus: Validate the consolidated meal entry screen works end-to-end. Skip advanc
   - **Commit**: `feat(nutrition): wire up save to daily recall`
   - _Requirements: FR-10_
 
-- [ ] 1.13 POC Checkpoint
+- [x] 1.13 POC Checkpoint
   - **Do**: Verify end-to-end flow works: open screen -> apply template OR add food -> adjust portion -> save. Test with at least 2 foods.
   - **Done when**: Complete meal can be logged in under 10 taps
   - **Verify**: Manual test of full flow, count taps
