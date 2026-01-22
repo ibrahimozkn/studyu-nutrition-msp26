@@ -23,7 +23,7 @@ Focus: Validate the consolidated meal entry screen works end-to-end. Skip advanc
   - _Requirements: FR-2, FR-8, US-2_
   - _Design: LLMIntegrationAdapter_
 
-- [ ] 1.2 Create NaturalLanguageInputWidget
+- [x] 1.2 Create NaturalLanguageInputWidget
   - **Do**: Create widget with TextField that accepts free text input. Store input in a callback. Add placeholder text "e.g., Oatmeal with berries and coffee". Do not integrate LLM yet - just store the text.
   - **Files**:
     - `app/lib/widgets/natural_language_input_widget.dart` (new)
