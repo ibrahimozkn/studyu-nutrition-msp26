@@ -33,7 +33,7 @@ Focus: Validate the consolidated meal entry screen works end-to-end. Skip advanc
   - _Requirements: FR-2, AC-2.1, AC-2.2, AC-2.4_
   - _Design: NaturalLanguageInputWidget_
 
-- [ ] 1.3 Create FoodEntryChip widget
+- [x] 1.3 Create FoodEntryChip widget
   - **Do**: Create widget that displays a FoodEntry as a chip with name, amount, unit, and calories. Add tap handler that opens a placeholder PortionAdjustmentSheet. Add swipe-to-delete or long-press delete gesture.
   - **Files**:
     - `app/lib/widgets/food_entry_chip.dart` (new)
