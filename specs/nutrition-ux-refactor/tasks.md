@@ -143,7 +143,7 @@ Focus: Validate the consolidated meal entry screen works end-to-end. Skip advanc
 
 After POC validated, clean up code and prepare for production.
 
-- [ ] 2.1 Extract QuickMealEntryViewModel
+- [x] 2.1 Extract QuickMealEntryViewModel
   - **Do**: Extract state management logic from QuickMealEntryScreen into separate ChangeNotifier class. Follow pattern of TemplateViewModel.
   - **Files**:
     - `app/lib/screens/study/nutrition/quick_meal_entry_view_model.dart` (new)
@@ -153,7 +153,7 @@ After POC validated, clean up code and prepare for production.
   - **Commit**: `refactor(nutrition): extract QuickMealEntryViewModel`
   - _Design: State Management_
 
-- [ ] 2.2 Add recent foods tracking
+- [x] 2.2 Add recent foods tracking
   - **Do**: Create RecentFoodsStorage class to persist recently used foods locally. Update QuickFoodAddWidget to load from storage instead of hardcoded values.
   - **Files**:
     - `app/lib/util/recent_foods_storage.dart` (new)
@@ -163,7 +163,7 @@ After POC validated, clean up code and prepare for production.
   - **Commit**: `feat(nutrition): add recent foods persistence`
   - _Requirements: FR-12, AC-3.2_
 
-- [ ] 2.3 Add advanced options expansion
+- [x] 2.3 Add advanced options expansion
   - **Do**: Add GatsotExpansionTile for advanced meal fields (mealContext, companyContext, distractionContext, locationDescription). Use existing pattern from meal_entry_screen.dart.
   - **Files**:
     - `app/lib/screens/study/nutrition/quick_meal_entry_screen.dart` (modify)
@@ -172,7 +172,7 @@ After POC validated, clean up code and prepare for production.
   - **Commit**: `feat(nutrition): add advanced options expansion`
   - _Requirements: FR-9, AC-5.1, AC-5.3_
 
-- [ ] 2.4 Implement smart defaults
+- [x] 2.4 Implement smart defaults
   - **Do**: Auto-set meal type based on time (existing _getMealTypeByTime logic). Set default mealContext to home. Set default timestamp to now.
   - **Files**:
     - `app/lib/screens/study/nutrition/quick_meal_entry_view_model.dart` (modify)
@@ -181,7 +181,7 @@ After POC validated, clean up code and prepare for production.
   - **Commit**: `feat(nutrition): implement smart defaults`
   - _Requirements: FR-7, AC-1.2, AC-5.4_
 
-- [ ] 2.5 Add LLM input placeholder integration
+- [x] 2.5 Add LLM input placeholder integration
   - **Do**: When user submits natural language input, show a "Processing..." state. For now, return mock results from MockMealDescriptionParser. Store the input text for future processing.
   - **Files**:
     - `app/lib/screens/study/nutrition/quick_meal_entry_view_model.dart` (modify)
@@ -191,7 +191,7 @@ After POC validated, clean up code and prepare for production.
   - **Commit**: `feat(nutrition): add LLM input mock processing`
   - _Requirements: FR-2, FR-8, AC-2.3, AC-2.5_
 
-- [ ] 2.6 Add error handling and loading states
+- [x] 2.6 Add error handling and loading states
   - **Do**: Add try/catch for all async operations. Show loading indicators during search and template loading. Show error messages with retry options.
   - **Files**:
     - `app/lib/screens/study/nutrition/quick_meal_entry_view_model.dart` (modify)
@@ -202,7 +202,7 @@ After POC validated, clean up code and prepare for production.
   - **Commit**: `refactor(nutrition): add error handling and loading states`
   - _Design: Error Handling_
 
-- [ ] 2.7 Add localization strings
+- [x] 2.7 Add localization strings
   - **Do**: Add all new strings to app_localizations.dart and translations (en, de). Use AppLocalizations everywhere.
   - **Files**:
     - `app/l10n/app_localizations.dart` (modify)
@@ -215,7 +215,7 @@ After POC validated, clean up code and prepare for production.
 
 ## Phase 3: Testing
 
-- [ ] 3.1 Widget tests for NaturalLanguageInputWidget
+- [x] 3.1 Widget tests for NaturalLanguageInputWidget
   - **Do**: Create test file verifying input capture, callback invocation, placeholder text.
   - **Files**:
     - `app/test/widgets/natural_language_input_widget_test.dart` (new)
@@ -224,7 +224,7 @@ After POC validated, clean up code and prepare for production.
   - **Commit**: `test(nutrition): add NaturalLanguageInputWidget tests`
   - _Requirements: AC-2.1, AC-2.2_
 
-- [ ] 3.2 Widget tests for FoodEntryChip
+- [x] 3.2 Widget tests for FoodEntryChip
   - **Do**: Create test file verifying chip rendering, tap callback, delete gesture.
   - **Files**:
     - `app/test/widgets/food_entry_chip_test.dart` (new)
@@ -233,7 +233,7 @@ After POC validated, clean up code and prepare for production.
   - **Commit**: `test(nutrition): add FoodEntryChip tests`
   - _Requirements: FR-6_
 
-- [ ] 3.3 Widget tests for TemplateCarouselWidget
+- [x] 3.3 Widget tests for TemplateCarouselWidget
   - **Do**: Create test file verifying carousel rendering, template display, tap callback.
   - **Files**:
     - `app/test/widgets/template_carousel_widget_test.dart` (new)
@@ -242,7 +242,7 @@ After POC validated, clean up code and prepare for production.
   - **Commit**: `test(nutrition): add TemplateCarouselWidget tests`
   - _Requirements: FR-4_
 
-- [ ] 3.4 Integration test for quick meal flow
+- [x] 3.4 Integration test for quick meal flow
   - **Do**: Create integration test simulating user opening screen, selecting template, adding food, adjusting portion, saving.
   - **Files**:
     - `app/integration_test/quick_meal_flow_test.dart` (new)
@@ -251,7 +251,7 @@ After POC validated, clean up code and prepare for production.
   - **Commit**: `test(nutrition): add quick meal integration test`
   - _Requirements: US-1, AC-1.1_
 
-- [ ] 3.5 Mock LLM parser tests
+- [x] 3.5 Mock LLM parser tests
   - **Do**: Create tests verifying MockMealDescriptionParser returns valid FoodEntry objects with proper structure.
   - **Files**:
     - `app/test/services/llm/mock_meal_description_parser_test.dart` (new)
@@ -262,7 +262,7 @@ After POC validated, clean up code and prepare for production.
 
 ## Phase 4: Quality Gates
 
-- [ ] 4.1 Local quality check
+- [x] 4.1 Local quality check
   - **Do**: Run `melos format`, `melos run generate`, `flutter analyze`. Fix all issues.
   - **Verify**: No lint errors, no analyze errors, code formatted
   - **Done when**: All quality commands pass

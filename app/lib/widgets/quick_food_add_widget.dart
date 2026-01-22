@@ -1,135 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:studyu_app/l10n/app_localizations.dart';
 import 'package:studyu_app/screens/study/nutrition/barcode_scanner_screen.dart';
 import 'package:studyu_app/screens/study/nutrition/food_entry_screen.dart';
 import 'package:studyu_app/screens/study/nutrition/inline_food_search_sheet.dart';
+import 'package:studyu_app/util/recent_foods_storage.dart';
 import 'package:studyu_core/core.dart';
 
-class QuickFoodAddWidget extends StatelessWidget {
+typedef ActionErrorCallback = void Function(String message, VoidCallback retry);
+
+typedef ActionStartedCallback = void Function(String message);
+
+class QuickFoodAddWidget extends StatefulWidget {
   final ValueChanged<FoodEntry>? onFoodSelected;
+  final String? userId;
+  final ActionStartedCallback? onActionStarted;
+  final VoidCallback? onActionFinished;
+  final ActionErrorCallback? onActionError;
 
   const QuickFoodAddWidget({
     this.onFoodSelected,
+    this.userId,
+    this.onActionStarted,
+    this.onActionFinished,
+    this.onActionError,
     super.key,
   });
 
-  static final List<FoodEntry> _recentFoods = [
-    FoodEntry.withId(
-      entryType: FoodEntryType.singleIngredient,
-      name: 'Greek yogurt',
-      description: 'Plain nonfat Greek yogurt',
-      amount: 1,
-      unit: 'cup',
-      servingSizeGrams: 245,
-      portionReference: '1 cup',
-      portionEstimationMethod: PortionEstimationMethod.householdMeasure,
-      portionState: PortionState.asServed,
-      nutrition: NutritionProfile(
-        energyKcal: 130,
-        protein: 23,
-        carbs: 9,
-        fat: 0,
-        sugars: 9,
-        fiber: 0,
-        saturatedFat: 0,
-        transFat: 0,
-        cholesterol: 10,
-        sodium: 70,
-        waterContent: 0,
-        micros: {},
-      ),
-      source: FoodSource.manual,
-      confidenceScore: 0.7,
-      originalValues: {},
-    ),
-    FoodEntry.withId(
-      entryType: FoodEntryType.singleIngredient,
-      name: 'Banana',
-      description: 'Medium banana',
-      amount: 1,
-      unit: 'banana',
-      servingSizeGrams: 118,
-      portionReference: '1 medium',
-      portionEstimationMethod: PortionEstimationMethod.standardUnit,
-      portionState: PortionState.asServed,
-      nutrition: NutritionProfile(
-        energyKcal: 105,
-        protein: 1.3,
-        carbs: 27,
-        fat: 0.3,
-        sugars: 14,
-        fiber: 3.1,
-        saturatedFat: 0.1,
-        transFat: 0,
-        cholesterol: 0,
-        sodium: 1,
-        waterContent: 0,
-        micros: {},
-      ),
-      source: FoodSource.manual,
-      confidenceScore: 0.7,
-      originalValues: {},
-    ),
-    FoodEntry.withId(
-      entryType: FoodEntryType.recipe,
-      name: 'Chicken salad',
-      description: 'Grilled chicken with greens',
-      amount: 1,
-      unit: 'bowl',
-      servingSizeGrams: 320,
-      portionReference: '1 bowl',
-      portionEstimationMethod: PortionEstimationMethod.householdMeasure,
-      portionState: PortionState.asServed,
-      nutrition: NutritionProfile(
-        energyKcal: 380,
-        protein: 34,
-        carbs: 18,
-        fat: 18,
-        sugars: 6,
-        fiber: 5,
-        saturatedFat: 3.5,
-        transFat: 0,
-        cholesterol: 95,
-        sodium: 520,
-        waterContent: 0,
-        micros: {},
-      ),
-      source: FoodSource.manual,
-      confidenceScore: 0.65,
-      originalValues: {},
-    ),
-    FoodEntry.withId(
-      entryType: FoodEntryType.singleIngredient,
-      name: 'Almonds',
-      description: 'Raw almonds',
-      amount: 1,
-      unit: 'oz',
-      servingSizeGrams: 28,
-      portionReference: '1 oz (about 23 almonds)',
-      portionEstimationMethod: PortionEstimationMethod.standardUnit,
-      portionState: PortionState.asServed,
-      nutrition: NutritionProfile(
-        energyKcal: 164,
-        protein: 6,
-        carbs: 6,
-        fat: 14,
-        sugars: 1.2,
-        fiber: 3.5,
-        saturatedFat: 1.1,
-        transFat: 0,
-        cholesterol: 0,
-        sodium: 0,
-        waterContent: 0,
-        micros: {},
-      ),
-      source: FoodSource.manual,
-      confidenceScore: 0.6,
-      originalValues: {},
-    ),
-  ];
+  @override
+  State<QuickFoodAddWidget> createState() => _QuickFoodAddWidgetState();
+}
+
+class _QuickFoodAddWidgetState extends State<QuickFoodAddWidget> {
+  final RecentFoodsStorage _storage = RecentFoodsStorage();
+  List<FoodEntry> _recentFoods = [];
+  bool _isLoading = true;
+  String? _loadError;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadRecentFoods();
+  }
+
+  Future<void> _loadRecentFoods() async {
+    setState(() {
+      _isLoading = true;
+      _loadError = null;
+    });
+
+    try {
+      final foods = await _storage.loadRecentFoods(userId: widget.userId);
+      if (!mounted) return;
+      setState(() {
+        _recentFoods = foods;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _loadError = 'Unable to load recent foods.';
+      });
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -150,18 +92,7 @@ class QuickFoodAddWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: _recentFoods
-                .map(
-                  (food) => _RecentFoodChip(
-                    food: food,
-                    onSelected: () => _handleRecentFood(food),
-                  ),
-                )
-                .toList(),
-          ),
+          _buildRecentSection(theme, l10n),
           const SizedBox(height: 12),
           Wrap(
             spacing: 8,
@@ -189,32 +120,129 @@ class QuickFoodAddWidget extends StatelessWidget {
     );
   }
 
-  void _handleRecentFood(FoodEntry food) {
-    onFoodSelected?.call(food);
+  Widget _buildRecentSection(ThemeData theme, AppLocalizations l10n) {
+    if (_isLoading) {
+      return const SizedBox(
+        height: 36,
+        child: Center(child: CircularProgressIndicator()),
+      );
+    }
+
+    if (_loadError != null) {
+      return Row(
+        children: [
+          Expanded(
+            child: Text(
+              _loadError!,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.error,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: _loadRecentFoods,
+            child: Text(l10n.try_again),
+          ),
+        ],
+      );
+    }
+
+    if (_recentFoods.isEmpty) {
+      return Text(
+        'No recent foods yet.',
+        style: theme.textTheme.bodySmall?.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
+        ),
+      );
+    }
+
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: _recentFoods
+          .map(
+            (food) => _RecentFoodChip(
+              food: food,
+              onSelected: () => _handleFoodSelected(food),
+            ),
+          )
+          .toList(),
+    );
+  }
+
+  Future<void> _handleFoodSelected(FoodEntry food) async {
+    final updatedFoods = await _storage.addRecentFood(
+      food,
+      userId: widget.userId,
+    );
+
+    if (mounted) {
+      setState(() {
+        _recentFoods = updatedFoods;
+      });
+    }
+
+    widget.onFoodSelected?.call(food);
+  }
+
+  Future<T?> _runAction<T>(
+    String loadingMessage,
+    Future<T?> Function() action,
+    VoidCallback retry,
+  ) async {
+    widget.onActionStarted?.call(loadingMessage);
+    try {
+      return await action();
+    } catch (e) {
+      widget.onActionError?.call(
+        'Something went wrong. Please try again.',
+        retry,
+      );
+      return null;
+    } finally {
+      widget.onActionFinished?.call();
+    }
   }
 
   Future<void> _openSearch(BuildContext context) async {
-    final result = await InlineFoodSearchSheet.show(context);
+    final result = await _runAction<FoodEntry>(
+      'Searching...',
+      () => InlineFoodSearchSheet.show(context),
+      () {
+        if (!mounted) return;
+        _openSearch(context);
+      },
+    );
     if (result != null) {
-      onFoodSelected?.call(result);
+      await _handleFoodSelected(result);
     }
   }
 
   Future<void> _openBarcodeScanner(BuildContext context) async {
-    final result = await Navigator.of(context).push(
-      BarcodeScannerScreen.route(),
+    final result = await _runAction<FoodEntry>(
+      'Opening scanner...',
+      () => Navigator.of(context).push(BarcodeScannerScreen.route()),
+      () {
+        if (!mounted) return;
+        _openBarcodeScanner(context);
+      },
     );
     if (result != null) {
-      onFoodSelected?.call(result);
+      await _handleFoodSelected(result);
     }
   }
 
   Future<void> _openCustomFood(BuildContext context) async {
-    final result = await Navigator.of(context).push(
-      FoodEntryScreen.route(),
+    final result = await _runAction<FoodEntry>(
+      'Opening food editor...',
+      () => Navigator.of(context).push(FoodEntryScreen.route()),
+      () {
+        if (!mounted) return;
+        _openCustomFood(context);
+      },
     );
     if (result != null) {
-      onFoodSelected?.call(result);
+      await _handleFoodSelected(result);
     }
   }
 }
